@@ -1,20 +1,24 @@
-" make sure you :so %
-" entry = priority | datestamp | keywords | hyphen | Subject Context 
-" general sort is by priority but you can sort by date and priority with :50,$!sort -k2r -k1 
+" MAKE SURE YOU :SO %
+" entry = priority | datestamp | keywords | hyphen | Subject Context
+" general sort is by priority but you can sort by date and priority with :50,$!sort -k2r -k1
 " another idea is /---- then .,$sort  MARK 50 and goto ot with 'm
 nmap ,, :50,$sort<cr>
+nmap ,p :. s/^/0 /g<cr>
 " always add down then SORT and highlight with /date
 " sort by datestamp ,sd where the date stamp event is :r !date +'\%FT\%T\%z \%a' -d "
-nmap ,d :50,$!sort -r -k2r<cr>
+nmap ,d :50,$!sort -r -k1r<cr>
 nmap ,t :r !date +'\%FT\%T\%z \%a' -d "
+nmap ,f :Rg <C-R><C-W><cr>
+" nmap ,g :lgrep <C-R><C-W> ./*<CR>:lopen<CR>
+nmap ,g :lgrep -r <C-R><C-W> ./*<CR>:lopen<CR>
 " sort by keyword1 ,sk1
-nmap ,k :50,$!sort -k4<cr>
-
+nmap ,k :50,$!sort -k3<cr>
+nmap ,v :vs\|E<cr>
 " datestamp from .vimrc or here
 nnoremap dts "=strftime("%FT%T%z %a")<CR>P
 inoremap dts <C-R>=strftime("%FT%T%z %a")<CR>
 
-"2021-06-28T09:52:31-0700 Mon add filename tag
+"2021-06-28T09:52:31-0700 Mon add filename tag 
 inoremap Wt <C-R>=expand("%:r")<CR>
 
 " create a new item by keywords
@@ -26,6 +30,7 @@ inoremap ,m 0 <C-R>=strftime("%FT%T%z %a")<CR> meisterzeit
 " Right now, It's like this - use * to link text
 " :lvim 'pattern' % and :lopen to link all hits together
 " :lvim 'c-r/' % will search for the current word
+":RG pattern
 " r reference x done 0-9 priority n note search with /^[0-9rntx]
 " This line keeps the rest of the file from being treated as vimscript
 finish
@@ -33,20 +38,6 @@ finish
 " 2021-07-27T11:16:49-0700 Tue BackupScript git log - :term then git commit -a -m "commit message"
 " based on https://github.com/nrr-deprecated/todo RandyPausch
 -----------------------------------------------------------------------------
-                                   2021                                   
-
-          July                     August                  September       
-   Su Mo Tu We Th Fr Sa      Su Mo Tu We Th Fr Sa      Su Mo Tu We Th Fr Sa
-26              1  2  3   31  1  2  3  4  5  6  7   35           1  2  3  4   
-27  4  5  6  7  8  9 10   32  8  9 10 11 12 13 14   36  5  6  7  8  9 10 11   
-28 11 12 13 14 15 16 17   33 15 16 17 18 19 20 21   37 12 13 14 15 16 17 18   
-29 18 19 20 21 22 23 24   34 22 23 24 25 26 27 28   38 19 20 21 22 23 24 25   
-30 25 26 27 28 29 30 31   35 29 30 31               39 26 27 28 29 30         
-                                                                              
-
-
-
-
-n 2021-09-03T09:44:39-0700 Fri meisterzeit - v1.0 is born
-r 2021-09-03T09:44:42-0700 Fri vim - keyword example invoked by ,v
-0 2021-09-03T12:00:41-0700 Fri meisterzeit GitHub - Upload meisterzeit 
+" use :Calendar via calendar.vim and pass DailyEntries to meisterzeit
+" :W3m for input or :term and QuteBrowser
+" :g/pattern/m$ for quicker grep
